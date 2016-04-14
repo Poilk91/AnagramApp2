@@ -20,6 +20,7 @@ public class AnagramDictionary {
     private HashSet<String> wordSet = new HashSet<String>( );
     private ArrayList<String> wordList = new ArrayList<String>( );
     private HashMap<String, ArrayList<String>> lettersToWord = new HashMap<String, ArrayList<String>>();
+    private HashMap<Integer, ArrayList<String>> sizeToWord = new HashMap<Integer, ArrayList<String>>();
 
     public AnagramDictionary(InputStream wordListStream) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(wordListStream));
@@ -31,6 +32,14 @@ public class AnagramDictionary {
             String sorted = helperFunction(word);
             if(lettersToWord.containsKey(sorted)){
                 lettersToWord.get(sorted).add(word);
+            }
+            else{
+                lettersToWord.put(sorted, new ArrayList<String>());
+                lettersToWord.get(sorted).add(word);
+            }
+
+            if(sizeToWord.containsKey(sorted)){
+                sizeToWord.get(sorted).add(word);
             }
             else{
                 lettersToWord.put(sorted, new ArrayList<String>());
